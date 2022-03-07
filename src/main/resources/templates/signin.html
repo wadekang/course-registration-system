@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <title>수강신청 사이트</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/signin.css">
+</head>
+<body>
+<div class="container">
+    <main class="text-center">
+        <form method="post">
+            <h1 class="h3 mb-3 fw-normal">로그인</h1>
+
+
+            <label for="loginId" class="visually-hidden">ID</label>
+            <input type="text" id="loginId" name="loginId" class="form-control" placeholder="아이디" required autofocus>
+            <label for="loginPassword" class="visually-hidden">Password</label>
+            <input type="password" id="loginPassword" name="loginPassword" class="form-control" placeholder="패스워드" required>
+
+            <hr>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+            <p class="mt-5 mb-3 text-muted">&copy;2022 wadekang</p>
+        </form>
+    </main>
+</div>
+</body>
+</html>
