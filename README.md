@@ -44,5 +44,5 @@ ___
 - STUDENT
 - ADMIN
 
-
+![COURSE_REGISTRATION_CUT](https://user-images.githubusercontent.com/49421226/157010455-707b5975-4006-446b-a8ff-e78963484a90.png)
 
