@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container" style="margin-top: 50px;">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div class="jumbotron">
+        <h1>Course Registration</h1>
+<!--        <p class="lead">회원 기능</p>-->
+        <p style="margin-top: 50px;">
+            <a class="btn btn-lg btn-secondary" style="width: 140px;" href="/user/signup">회원 가입</a>
+            <a class="btn btn-lg btn-secondary" style="width: 140px;" href="/user/login">로그인</a>
+        </p>
+<!--        <p class="lead">수강 신청</p>-->
+        <p style="margin-top: 20px;">
+            <a class="btn btn-lg btn-dark" style="width: 140px;" href="/items/new">수강 조회</a>
+            <a class="btn btn-lg btn-dark" style="width: 140px;" href="/items">수강 신청</a>
+        </p>
+<!--        <p class="lead">주문 기능</p>-->
+        <p style="margin-top: 20px;">
+            <a class="btn btn-lg btn-info" style="width: 200px;" href="/order">수강신청 내역</a>
+<!--            <a class="btn btn-lg btn-info" style="width: 140px;" href="/orders">주문 내역</a>-->
+        </p>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
