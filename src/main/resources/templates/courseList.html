@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <div>
+            <form th:object="${majorSearch}" class="form-inline">
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{majorId}" class="form-control">
+                        <option value="">전공 선택</option>
+                        <option th:each="major : ${majors}"
+                                th:value="${major.majorId}"
+                                th:text="${major.majorName}">option
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">검색</button>
+            </form>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>전공명</th>
+                <th>과목명</th>
+                <th>분반 조회</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course, i: ${courses}">
+                <td th:text="${i.index}"></td>
+                <td th:text="${course.major.majorName}"></td>
+                <td th:text="${course.courseName}"></td>
+                <td>
+                    <a href="#" th:href="@{/courses/{id} (id=${course.courseId})}"
+                       class="btn btn-secondary">분반 조회</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

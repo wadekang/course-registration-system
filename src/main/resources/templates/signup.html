@@ -59,8 +59,9 @@
                 </div>
                 <div class="row">
                     <select id="majorId" name="majorId">
+                        <option value="">전공 선택</option>
                         <option th:each="major : ${majors}" th:value="${major.majorId}" th:text="${major.majorName}" th:selected="${major.majorId == signUpDto.majorId}">
-                            전공선택
+                            전공 선택
                         </option>
                     </select>
                 </div>
