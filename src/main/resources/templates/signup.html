@@ -20,48 +20,48 @@
     </style>
 </head>
 <body>
-<div class="container" style="margin-top: 25px;">
+<div class="container" style="margin-top: 15px;">
     <div class="py-5 text-center">
         <h2>회원 가입</h2>
     </div>
 
     <h4 class="mb-3">회원 정보 입력</h4>
 
-    <form method="post">
+    <form role="form" action="/user/signup" th:object="${signUpDto}" method="post">
         <div>
-            <label for="username">이름</label>
-            <input type="text" id="username" class="form-control">
+            <label th:for="username">이름</label>
+            <input type="text" th:field="*{username}" id="username" class="form-control">
         </div>
         <div>
-            <label for="loginId">로그인 ID</label>
-            <input type="text" id="loginId" class="form-control">
+            <label th:for="loginId">로그인 ID</label>
+            <input type="text" th:field="*{loginId}" id="loginId" class="form-control">
         </div>
         <div>
-            <label for="password">비밀번호</label>
-            <input type="password" id="password" class="form-control">
+            <label th:for="password">비밀번호</label>
+            <input type="password" th:field="*{password}" id="password" class="form-control">
         </div>
         <div>
             <label for="password-confirm">비밀번호 확인</label>
             <input type="password" id="password-confirm" class="form-control">
         </div>
         <div>
-            <label for="email">이메일</label>
-            <input type="email" id="email" class="form-control">
+            <label th:for="email">이메일</label>
+            <input type="email" th:field="*{email}" id="email" class="form-control">
         </div>
         <div>
-            <label for="phone-number">전화번호</label>
-            <input type="number" id="phone-number" class="form-control">
+            <label th:for="phoneNumber">전화번호</label>
+            <input type="number" th:field="*{phoneNumber}" id="phoneNumber" class="form-control">
         </div>
         <div style="margin-top: 20px;">
             <div class="col">
                 <div class="row">
-                    <label for="major">전공</label>
+                    <label for="majorId">전공</label>
                 </div>
                 <div class="row">
-                    <select id="major" name="major">
-                        <option value="csee">전산전자공학부</option>
-                        <option value="mce">기계제어공학부</option>
-                        <option value="ls">생명과학부</option>
+                    <select id="majorId" name="majorId">
+                        <option th:each="major : ${majors}" th:value="${major.majorId}" th:text="${major.majorName}" th:selected="${major.majorId == signUpDto.majorId}">
+                            전공선택
+                        </option>
                     </select>
                 </div>
             </div>

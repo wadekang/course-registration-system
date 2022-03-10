@@ -17,14 +17,14 @@
         <h2>로그인</h2>
     </div>
 
-    <form method="post">
+    <form role="form" action="/user/login" th:object="${loginDto}" method="post">
         <div>
-            <label for="loginId">로그인 ID</label>
-            <input type="text" id="loginId" class="form-control">
+            <label th:for="loginId">로그인 ID</label>
+            <input type="text" th:field="*{loginId}" id="loginId" class="form-control">
         </div>
         <div>
-            <label for="password">비밀번호</label>
-            <input type="password" id="password" class="form-control">
+            <label th:for="password">비밀번호</label>
+            <input type="password" th:field="*{password}" id="password" class="form-control">
         </div>
 
         <hr class="my-4">

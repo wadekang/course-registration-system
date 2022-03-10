@@ -1,5 +1,6 @@
 package com.wadekang.toyproject.courseregistrationsystem.domain;
 
+import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +44,7 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user")
     private List<TakeClass> takeClasses;
 
-    @Builder(builderClassName = "StudentBuilder")
+    @Builder(builderClassName = "UserBuilder", builderMethodName = "userBuilder")
     public User(String loginId, String password, String username, Major major, Role role, String email, String phoneNumber) {
         this.loginId = loginId;
         this.password = password;
@@ -52,5 +53,22 @@ public class User extends BaseTimeEntity {
         this.role = role;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    @Builder(builderClassName = "UserSignUpBuilder", builderMethodName = "signupBuilder")
+    public User(String loginId, String password, String username, Major major, String email, String phoneNumber) {
+        this.loginId = loginId;
+        this.password = password;
+        this.username = username;
+        this.major = major;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.role = Role.STUDENT;
+    }
+
+    public void update(UserUpdateRequestDto requestDto) {
+        this.email = requestDto.getEmail();
+        this.phoneNumber = requestDto.getPhoneNumber();
+        this.major = requestDto.getMajor();
     }
 }
