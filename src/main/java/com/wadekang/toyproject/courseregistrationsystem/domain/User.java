@@ -4,14 +4,17 @@ import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserUpdat
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class User extends BaseTimeEntity {
+public class User extends BaseTimeEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,5 +73,30 @@ public class User extends BaseTimeEntity {
         this.email = requestDto.getEmail();
         this.phoneNumber = requestDto.getPhoneNumber();
         this.major = requestDto.getMajor();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

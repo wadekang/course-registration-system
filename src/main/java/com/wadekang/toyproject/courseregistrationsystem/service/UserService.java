@@ -6,13 +6,17 @@ import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserUpdat
 import com.wadekang.toyproject.courseregistrationsystem.domain.User;
 import com.wadekang.toyproject.courseregistrationsystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final MajorService majorService;
@@ -21,7 +25,7 @@ public class UserService {
     public Long join(UserSignUpDto signUpDto) {
         User user = User.signupBuilder()
                 .loginId(signUpDto.getLoginId())
-                .password(signUpDto.getPassword())
+                .password(new BCryptPasswordEncoder().encode(signUpDto.getPassword()))
                 .username(signUpDto.getUsername())
                 .email(signUpDto.getEmail())
                 .phoneNumber(signUpDto.getPhoneNumber())
@@ -53,5 +57,14 @@ public class UserService {
         user.update(requestDto);
 
         return userId;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+        User user = userRepository.findByLoginId(loginId);
+
+        if (user == null) throw new UsernameNotFoundException("해당 유저가 없습니다.");
+
+        return user;
     }
 }

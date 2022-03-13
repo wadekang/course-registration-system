@@ -14,12 +14,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
@@ -28,23 +27,15 @@ public class UserController {
     private final MajorService majorService;
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(Model model,
+                        @RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "exception", required = false) String exception) {
+
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         model.addAttribute("loginDto", new UserLoginDto());
+
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String userLogin(@Validated UserLoginDto loginDto, BindingResult bindingResult) {
-
-        if(bindingResult.hasErrors()) {
-            return "login";
-        }
-
-        UserResponseDto loginUser = userService.findLoginUser(loginDto.getLoginId(), loginDto.getPassword());
-
-        log.info("{}", loginUser);
-
-        return "redirect:/";
     }
 
     @GetMapping("/signup")

@@ -27,7 +27,7 @@
 
     <h4 class="mb-3">회원 정보 입력</h4>
 
-    <form role="form" action="/user/signup" th:object="${signUpDto}" method="post">
+    <form role="form" action="/signup" th:object="${signUpDto}" method="post">
         <div>
             <label th:for="username">이름</label>
             <input type="text" th:field="*{username}" id="username" class="form-control">
