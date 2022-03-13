@@ -20,18 +20,13 @@ public class TakeClass {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(targetEntity = Course.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    private Course course;
-
     @ManyToOne(targetEntity = Classes.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id")
     private Classes classes;
 
     @Builder
-    public TakeClass(User user, Course course, Classes classes) {
+    public TakeClass(User user, Classes classes) {
         this.user = user;
-        this.course = course;
         this.classes = classes;
     }
 }
