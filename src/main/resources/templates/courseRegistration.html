@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <div>
+            <div class="mb-2">
+                <form th:object="${majorSearch}" class="form-inline">
+                    <div class="form-group mx-sm-1 mb-2">
+                        <select th:field="*{majorId}" class="form-control" th:onchange="this.form.submit()">
+                            <option value="">전공 선택</option>
+                            <option th:each="major : ${majors}"
+                                    th:value="${major.majorId}"
+                                    th:text="${major.majorName}">option
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="mb-2">
+                <form th:object="${courseSearch}" class="form-inline">
+                    <div class="form-group mx-sm-1 mb-2">
+                        <select th:field="*{courseId}" class="form-control">
+                            <option value="">과목 선택</option>
+                            <option th:each="course : ${courses}"
+                                    th:value="${course.courseId}"
+                                    th:text="${course.courseName}">option
+                            </option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">검색</button>
+                </form>
+            </div>
+        </div>
+        <table class="table table-striped text-center">
+            <thead>
+            <tr>
+                <th>과목명</th>
+                <th>교수</th>
+                <th>분반</th>
+                <th>정원</th>
+                <th>인원</th>
+                <th>신청</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="class: ${classes}">
+                <td th:text="${class.course.courseName}"></td>
+                <td th:text="${class.professorName}"></td>
+                <td th:text="|0${class.classNumber}|"></td>
+                <td th:text="${class.maxStudentNum}"></td>
+                <td th:text="${class.curStudentNum}"></td>
+                <td>
+                    <a href="#" th:href="@{/register/{id} (id=${class.classId})}"
+                       class="btn btn-secondary">수강 신청</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

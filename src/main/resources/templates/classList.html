@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <div style="margin-bottom: 15px;">
+            <a href="javascript:history.back()" class="btn btn-primary">Back</a>
+        </div>
+        <table class="table table-striped text-center">
+            <thead>
+            <tr>
+                <th>과목명</th>
+                <th>교수</th>
+                <th>분반</th>
+                <th>정원</th>
+                <th>인원</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="class: ${classes}">
+                <td th:text="${class.course.courseName}"></td>
+                <td th:text="${class.professorName}"></td>
+                <td th:text="|0${class.classNumber}|"></td>
+                <td th:text="${class.maxStudentNum}"></td>
+                <td th:text="${class.curStudentNum}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

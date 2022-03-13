@@ -30,7 +30,7 @@
             </thead>
             <tbody>
             <tr th:each="course, i: ${courses}">
-                <td th:text="${i.index}"></td>
+                <td th:text="${i.index + 1}"></td>
                 <td th:text="${course.major.majorName}"></td>
                 <td th:text="${course.courseName}"></td>
                 <td>
