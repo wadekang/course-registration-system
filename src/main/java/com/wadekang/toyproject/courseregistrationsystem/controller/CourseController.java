@@ -1,6 +1,6 @@
 package com.wadekang.toyproject.courseregistrationsystem.controller;
 
-import com.wadekang.toyproject.courseregistrationsystem.controller.dto.MajorSearch;
+import com.wadekang.toyproject.courseregistrationsystem.controller.dto.ClassSearch;
 import com.wadekang.toyproject.courseregistrationsystem.domain.Course;
 import com.wadekang.toyproject.courseregistrationsystem.domain.Major;
 import com.wadekang.toyproject.courseregistrationsystem.service.CourseService;
@@ -22,8 +22,8 @@ public class CourseController {
     private final MajorService majorService;
 
     @GetMapping("/courses")
-    public String courseList(@ModelAttribute("majorSearch") MajorSearch majorSearch, Model model) {
-        List<Course> courses = courseService.findByMajor(majorSearch);
+    public String courseList(@ModelAttribute("classSearch") ClassSearch classSearch, Model model) {
+        List<Course> courses = courseService.findByMajor(classSearch.getMajorId());
         List<Major> majors = majorService.findAll();
 
         model.addAttribute("courses", courses);

@@ -1,6 +1,5 @@
 package com.wadekang.toyproject.courseregistrationsystem.service;
 
-import com.wadekang.toyproject.courseregistrationsystem.controller.dto.MajorSearch;
 import com.wadekang.toyproject.courseregistrationsystem.domain.Course;
 import com.wadekang.toyproject.courseregistrationsystem.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,8 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
 
-    public List<Course> findByMajor(MajorSearch majorSearch) {
-        return courseRepository.findByMajor(majorSearch.getMajorId());
+    public List<Course> findByMajor(Long majorId) {
+        return courseRepository.findByMajor(majorId);
     }
 
     public Course findById(Long courseId) {

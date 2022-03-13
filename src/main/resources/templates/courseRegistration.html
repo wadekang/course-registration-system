@@ -6,33 +6,27 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         <div>
-            <div class="mb-2">
-                <form th:object="${majorSearch}" class="form-inline">
-                    <div class="form-group mx-sm-1 mb-2">
-                        <select th:field="*{majorId}" class="form-control" th:onchange="this.form.submit()">
-                            <option value="">전공 선택</option>
-                            <option th:each="major : ${majors}"
-                                    th:value="${major.majorId}"
-                                    th:text="${major.majorName}">option
-                            </option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="mb-2">
-                <form th:object="${courseSearch}" class="form-inline">
-                    <div class="form-group mx-sm-1 mb-2">
-                        <select th:field="*{courseId}" class="form-control">
-                            <option value="">과목 선택</option>
-                            <option th:each="course : ${courses}"
-                                    th:value="${course.courseId}"
-                                    th:text="${course.courseName}">option
-                            </option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2">검색</button>
-                </form>
-            </div>
+            <form th:object="${classSearch}" class="form-inline">
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{majorId}" class="form-control" th:onchange="this.form.submit()">
+                        <option value="">전공 선택</option>
+                        <option th:each="major : ${majors}"
+                                th:value="${major.majorId}"
+                                th:text="${major.majorName}">option
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{courseId}" class="form-control">
+                        <option value="">과목 선택</option>
+                        <option th:each="course : ${courses}"
+                                th:value="${course.courseId}"
+                                th:text="${course.courseName}">option
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">검색</button>
+            </form>
         </div>
         <table class="table table-striped text-center">
             <thead>

@@ -6,6 +6,7 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         <div style="margin-bottom: 15px;">
+            <span th:text="|${classes[0].course.major.majorName} - ${classes[0].course.courseName}|" style="font-weight: bold;"></span>
             <a href="javascript:history.back()" class="btn btn-primary">Back</a>
         </div>
         <table class="table table-striped text-center">
