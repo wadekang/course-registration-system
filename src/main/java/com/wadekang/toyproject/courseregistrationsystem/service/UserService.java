@@ -4,6 +4,7 @@ import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserRespo
 import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserSignUpDto;
 import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserUpdateRequestDto;
 import com.wadekang.toyproject.courseregistrationsystem.domain.User;
+import com.wadekang.toyproject.courseregistrationsystem.repository.MajorRepository;
 import com.wadekang.toyproject.courseregistrationsystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,17 +22,26 @@ import java.util.ArrayList;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final MajorService majorService;
+    private final MajorRepository majorRepository;
 
     @Transactional
     public Long join(UserSignUpDto signUpDto) {
+        userRepository.findByLoginId(signUpDto.getLoginId())
+                .ifPresent(user -> {
+                    throw new IllegalArgumentException("Failed: Already Exist!");
+                });
+
+        if (!signUpDto.getPassword().equals(signUpDto.getPasswordConfirm())) {
+            throw new IllegalArgumentException("Failed: Please Check Password!");
+        }
+
         User user = User.signupBuilder()
                 .loginId(signUpDto.getLoginId())
                 .password(new BCryptPasswordEncoder().encode(signUpDto.getPassword()))
                 .username(signUpDto.getUsername())
                 .email(signUpDto.getEmail())
                 .phoneNumber(signUpDto.getPhoneNumber())
-                .major(majorService.findById(signUpDto.getMajorId()))
+                .major(majorRepository.findById(signUpDto.getMajorId()).get())
                 .takeClasses(new ArrayList<>())
                 .build();
         return userRepository.save(user).getUserId();
@@ -39,15 +49,7 @@ public class UserService implements UserDetailsService {
 
     public UserResponseDto findById(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + userId));
-
-        return new UserResponseDto(user);
-    }
-
-    public UserResponseDto findLoginUser(String loginId, String password) {
-        User user = userRepository.findLoginUser(loginId, password).orElse(null);
-
-        if(user == null) return null;
+                .orElseThrow(() -> new IllegalArgumentException("Failed: No User Info"));
 
         return new UserResponseDto(user);
     }
@@ -55,7 +57,7 @@ public class UserService implements UserDetailsService {
     @Transactional
     public Long update(Long userId, UserUpdateRequestDto requestDto) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + userId));
+                .orElseThrow(() -> new IllegalArgumentException("Failed: No User Info"));
 
         user.update(requestDto);
 
@@ -64,9 +66,8 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-        User user = userRepository.findByLoginId(loginId);
-
-        if (user == null) throw new UsernameNotFoundException("해당 유저가 없습니다.");
+        User user = userRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new UsernameNotFoundException("Failed: No User Info"));
 
         return user;
     }

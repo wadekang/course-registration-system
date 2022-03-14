@@ -30,7 +30,6 @@ public class UserController {
 
     private final UserService userService;
     private final MajorService majorService;
-    private final TakeClassService takeClassService;
 
     @GetMapping("/login")
     public String login(Model model,
@@ -39,27 +38,33 @@ public class UserController {
 
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-        model.addAttribute("loginDto", new UserLoginDto());
 
         return "login";
     }
 
     @GetMapping("/signup")
-    public String signup(Model model) {
+    public String signup(Model model,
+                         @RequestParam(value="msg", required = false) String msg) {
         List<Major> majors = majorService.findAll();
 
         model.addAttribute("signUpDto", new UserSignUpDto());
         model.addAttribute("majors", majors);
+        model.addAttribute("msg", msg);
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String create(@Validated UserSignUpDto signUpDto, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+    public String create(UserSignUpDto signUpDto, Model model) {
+        try {
+            userService.join(signUpDto);
+        } catch (Exception e) {
+            List<Major> majors = majorService.findAll();
+
+            model.addAttribute("majors", majors);
+            model.addAttribute("signUpDto", signUpDto);
+            model.addAttribute("msg", e.getMessage());
             return "signup";
         }
-
-        userService.join(signUpDto);
 
         return "redirect:/";
     }
