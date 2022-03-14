@@ -45,11 +45,11 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column
     private String phoneNumber;
 
-    @OneToMany(targetEntity = TakeClass.class, mappedBy = "user")
+    @OneToMany(mappedBy = "user")
     private List<TakeClass> takeClasses;
 
     @Builder(builderClassName = "UserSignUpBuilder", builderMethodName = "signupBuilder")
-    public User(String loginId, String password, String username, Major major, String email, String phoneNumber, List<TakeClass> takeClasses) {
+    public User(String loginId, String password, String username, Major major, String email, String phoneNumber) {
         this.loginId = loginId;
         this.password = password;
         this.username = username;
@@ -57,7 +57,7 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.role = Role.STUDENT;
-        this.takeClasses = takeClasses;
+        this.takeClasses = new ArrayList<>();
     }
 
     public void update(UserUpdateRequestDto requestDto) {

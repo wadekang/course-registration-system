@@ -11,21 +11,5 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
-#  datasource:
-#    url: jdbc:h2:mem:testdb;MODE=MYSQL
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
-#
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
-#    properties:
-#      hibernate:
-#        format_sql: true
-#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-#        storage-engine: innodb
-#    defer-datasource-initialization: true
-
 logging.level:
   org.hibernate.SQL: debug

@@ -7,22 +7,18 @@ import com.wadekang.toyproject.courseregistrationsystem.domain.User;
 import com.wadekang.toyproject.courseregistrationsystem.repository.MajorRepository;
 import com.wadekang.toyproject.courseregistrationsystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserRepository userRepository;
     private final MajorRepository majorRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
     public Long join(UserSignUpDto signUpDto) {
@@ -37,12 +33,11 @@ public class UserService implements UserDetailsService {
 
         User user = User.signupBuilder()
                 .loginId(signUpDto.getLoginId())
-                .password(new BCryptPasswordEncoder().encode(signUpDto.getPassword()))
+                .password(passwordEncoder.encode(signUpDto.getPassword()))
                 .username(signUpDto.getUsername())
                 .email(signUpDto.getEmail())
                 .phoneNumber(signUpDto.getPhoneNumber())
                 .major(majorRepository.findById(signUpDto.getMajorId()).get())
-                .takeClasses(new ArrayList<>())
                 .build();
         return userRepository.save(user).getUserId();
     }
@@ -62,13 +57,5 @@ public class UserService implements UserDetailsService {
         user.update(requestDto);
 
         return userId;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-        User user = userRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new UsernameNotFoundException("Failed: No User Info"));
-
-        return user;
     }
 }

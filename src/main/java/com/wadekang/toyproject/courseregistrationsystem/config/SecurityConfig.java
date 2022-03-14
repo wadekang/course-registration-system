@@ -2,6 +2,7 @@ package com.wadekang.toyproject.courseregistrationsystem.config;
 
 import com.wadekang.toyproject.courseregistrationsystem.handler.AuthFailureHandler;
 import com.wadekang.toyproject.courseregistrationsystem.handler.AuthSuccessHandler;
+import com.wadekang.toyproject.courseregistrationsystem.service.UserDetailsServiceImpl;
 import com.wadekang.toyproject.courseregistrationsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
+    private final UserDetailsServiceImpl userDetailsService;
     private final AuthSuccessHandler authSuccessHandler;
     private final AuthFailureHandler authFailureHandler;
 
@@ -27,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
