@@ -3,7 +3,6 @@ package com.wadekang.toyproject.courseregistrationsystem.config;
 import com.wadekang.toyproject.courseregistrationsystem.handler.AuthFailureHandler;
 import com.wadekang.toyproject.courseregistrationsystem.handler.AuthSuccessHandler;
 import com.wadekang.toyproject.courseregistrationsystem.service.UserDetailsServiceImpl;
-import com.wadekang.toyproject.courseregistrationsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
