@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
     public Long join(UserSignUpDto signUpDto) {
         userRepository.findByLoginId(signUpDto.getLoginId())
                 .ifPresent(user -> {
-                    throw new IllegalArgumentException("Failed: Already Exist!");
+                    throw new IllegalArgumentException("Failed: Already Exist ID!");
                 });
 
         if (!signUpDto.getPassword().equals(signUpDto.getPasswordConfirm())) {

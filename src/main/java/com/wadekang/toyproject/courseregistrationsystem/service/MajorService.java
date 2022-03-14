@@ -17,7 +17,7 @@ public class MajorService {
 
     public Major findById(Long majorId) {
         return majorRepository.findById(majorId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 전공입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("Failed: No Major Info"));
     }
 
     public List<Major> findAll() {

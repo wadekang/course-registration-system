@@ -21,6 +21,6 @@ public class CourseService {
 
     public Course findById(Long courseId) {
         return courseRepository.findById(courseId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 과목입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("Failed: No Course Info"));
     }
 }

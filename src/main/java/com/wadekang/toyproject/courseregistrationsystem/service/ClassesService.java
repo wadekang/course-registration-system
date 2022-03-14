@@ -17,7 +17,7 @@ public class ClassesService {
 
     public Classes findById(Long classId) {
         return classesRepository.findById(classId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 수업입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("Failed: No Class Info"));
     }
 
     public List<Classes> findByCourse(Long courseId) {
