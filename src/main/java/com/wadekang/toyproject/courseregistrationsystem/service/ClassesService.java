@@ -15,6 +15,11 @@ public class ClassesService {
 
     private final ClassesRepository classesRepository;
 
+    public Classes findById(Long classId) {
+        return classesRepository.findById(classId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 수업입니다."));
+    }
+
     public List<Classes> findByCourse(Long courseId) {
         return classesRepository.findByCourse(courseId);
     }

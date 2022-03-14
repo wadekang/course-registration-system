@@ -1,6 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
+<head>
+    <th:block th:if="${msg}">
+        <script charset="UTF-8">
+            top.alert("[[${msg}]]");
+        </script>
+    </th:block>
+</head>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>

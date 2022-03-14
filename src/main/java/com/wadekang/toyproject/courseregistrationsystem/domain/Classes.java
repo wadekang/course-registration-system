@@ -40,4 +40,19 @@ public class Classes {
         this.maxStudentNum = maxStudentNum;
         this.curStudentNum = curStudentNum;
     }
+
+    //== 수강 신청 ==//
+    public void registration() {
+        this.curStudentNum++;
+    }
+
+    //== 수강 취소 ==//
+    public void cancel() {
+        this.curStudentNum--;
+    }
+
+    //== 수강 인원 확인 ==//
+    public boolean isFull() {
+        return curStudentNum >= maxStudentNum;
+    }
 }

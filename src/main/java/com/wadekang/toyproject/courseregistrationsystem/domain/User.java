@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -44,22 +45,11 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(targetEntity = TakeClass.class, mappedBy = "user")
     private List<TakeClass> takeClasses;
 
-    @Builder(builderClassName = "UserBuilder", builderMethodName = "userBuilder")
-    public User(String loginId, String password, String username, Major major, Role role, String email, String phoneNumber) {
-        this.loginId = loginId;
-        this.password = password;
-        this.username = username;
-        this.major = major;
-        this.role = role;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
-
     @Builder(builderClassName = "UserSignUpBuilder", builderMethodName = "signupBuilder")
-    public User(String loginId, String password, String username, Major major, String email, String phoneNumber) {
+    public User(String loginId, String password, String username, Major major, String email, String phoneNumber, List<TakeClass> takeClasses) {
         this.loginId = loginId;
         this.password = password;
         this.username = username;
@@ -67,12 +57,23 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.role = Role.STUDENT;
+        this.takeClasses = takeClasses;
     }
 
     public void update(UserUpdateRequestDto requestDto) {
         this.email = requestDto.getEmail();
         this.phoneNumber = requestDto.getPhoneNumber();
         this.major = requestDto.getMajor();
+    }
+
+    //== 수강 신청 ==//
+    public void registration(TakeClass takeClass) {
+        this.takeClasses.add(takeClass);
+    }
+
+    //== 수강 취소 ==//
+    public void cancel(TakeClass takeClass) {
+        this.takeClasses.remove(takeClass);
     }
 
     @Override

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<head>
+    <th:block th:if="${msg}">
+        <script charset="UTF-8">
+            top.alert("[[${msg}]]");
+        </script>
+    </th:block>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <div style="margin-bottom: 15px;">
+            <span th:text="|${username}님의 수강신청 내역|" style="font-weight: bold;"></span>
+        </div>
+        <table class="table table-striped text-center">
+            <thead>
+            <tr>
+                <th>과목명</th>
+                <th>교수</th>
+                <th>분반</th>
+                <th>수강취소</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="takeClass: ${takeClasses}">
+                <td th:text="${takeClass.classes.course.courseName}"></td>
+                <td th:text="${takeClass.classes.professorName}"></td>
+                <td th:text="|0${takeClass.classes.classNumber}|"></td>
+                <td>
+                    <a href="#" th:href="@{/cancel/{id} (id=${takeClass.takeId})}"
+                       class="btn btn-danger">CANCEL</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

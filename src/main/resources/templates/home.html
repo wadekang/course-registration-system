@@ -9,7 +9,7 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div class="jumbotron">
         <h1>Course Registration</h1>
-        <span th:if="${user}" th:text="|안녕하세요. ${user.username}님.|"></span>
+        <span th:if="${user}" th:text="|안녕하세요. ${user.username}님|"></span>
         <p th:unless="${user}" style="margin-top: 50px;">
             <a class="btn btn-lg btn-secondary" style="width: 160px;" href="/signup">회원 가입</a>
             <a class="btn btn-lg btn-secondary" style="width: 160px;" href="/login">로그인</a>
@@ -23,7 +23,7 @@
             <a class="btn btn-lg btn-dark" style="width: 160px;" href="/register">수강 신청</a>
         </p>
         <p style="margin-top: 20px;">
-            <a class="btn btn-lg btn-info" style="width: 200px;" href="/order">수강신청 내역</a>
+            <a class="btn btn-lg btn-info" style="width: 200px;" href="/myCourses">수강신청 내역</a>
         </p>
     </div>
     <div th:replace="fragments/footer :: footer" />

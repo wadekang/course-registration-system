@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -30,6 +32,7 @@ public class UserService implements UserDetailsService {
                 .email(signUpDto.getEmail())
                 .phoneNumber(signUpDto.getPhoneNumber())
                 .major(majorService.findById(signUpDto.getMajorId()))
+                .takeClasses(new ArrayList<>())
                 .build();
         return userRepository.save(user).getUserId();
     }
