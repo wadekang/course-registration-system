@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class UserRepositoryTest {
+public class UserTest {
 
     @Autowired
     UserRepository userRepository;
