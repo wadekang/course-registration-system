@@ -55,6 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionManagement()
                     .maximumSessions(1)
                     .maxSessionsPreventsLogin(false)
-                    .expiredUrl("/login?error=true&exception=새로운 곳에서 로그인했거나 세션이 만료되었습니다.");
+                    .expiredUrl("/login?error=true&exception=Session Expired!");
     }
 }
