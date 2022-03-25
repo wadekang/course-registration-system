@@ -5,16 +5,22 @@ import com.wadekang.toyproject.courseregistrationsystem.repository.MajorReposito
 import com.wadekang.toyproject.courseregistrationsystem.repository.UserRepository;
 import com.wadekang.toyproject.courseregistrationsystem.service.UserService;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.sql.DataSource;
+
+import java.sql.Connection;
 
 import static org.assertj.core.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
+@Transactional
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserTest {
 
     @Autowired
@@ -29,17 +35,16 @@ public class UserTest {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
-    @BeforeEach
-    public void beforeEach() {
-        majorRepository.save(Major.builder()
-                .majorName("컴퓨터공학")
-                .build());
-    }
+    @Autowired
+    DataSource dataSource;
 
-    @AfterEach
-    public void afterEach() {
-        userRepository.deleteAll();
-        majorRepository.deleteAll();
+    @BeforeAll
+    public void init() {
+        try (Connection conn = dataSource.getConnection()) {
+            ScriptUtils.executeSqlScript(conn, new ClassPathResource("/db/h2/data.sql"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -79,7 +84,7 @@ public class UserTest {
                 .majorId(majorRepository.findAll().get(0).getMajorId())
                 .build();
 
-        userService.join(user1);
+        Long savedId = userService.join(user1);
 
         // when
         // same loginId with user1
@@ -100,5 +105,4 @@ public class UserTest {
         // then
         assertThat(exception.getMessage()).isEqualTo("Failed: Already Exist ID!");
     }
-
 }

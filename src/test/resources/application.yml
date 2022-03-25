@@ -6,13 +6,12 @@ spring:
     driver-class-name: org.h2.Driver
 
   jpa:
-    generate-ddl: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         storage-engine: innodb
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       show-sql: true
       format_sql: true
     defer-datasource-initialization: true
