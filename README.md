@@ -1,20 +1,26 @@
 # course-registration-system
 Spring Boot 수강신청 웹 사이트 토이 프로젝트
 
+### Main Page
+<img src="https://user-images.githubusercontent.com/49421226/160076539-2fbc7bf1-324a-4341-9a2a-6587d3e69227.png">
+
 ---
 ## Tools
 1. Java: JDK 11.0.13
 2. Spring: Spring Boot 2.6.4
 3. Gradle
 4. DB: H2 1.4.200 & MariaDB(AWS RDS) 10.5.13
-5. AWS EC2
+5. Cloud: AWS EC2
+6. CI/CD: Travis
 
 ---
 ## ERD
 <img src="https://user-images.githubusercontent.com/49421226/157011402-7a7a8b26-0304-4894-b6ff-17f23f828601.png" width="450" height="900">
 
 --- 
-### Login
+### Login & Logout
+
+Spring Security 적용
 ```java
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -63,4 +69,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 }
 ```
+---
+### 수강 조회
 
+#### 전공별 수강조회 기능
+<img src="https://user-images.githubusercontent.com/49421226/160076998-cbc3b303-387f-4262-a8c6-5061de982af0.png">
+
+#
+#### 과목별 분반 조회
+<img src="https://user-images.githubusercontent.com/49421226/160077193-1589805d-711a-4a3f-a828-115da61c07e8.png">
+
+---
+### 수강 신청
+
+#### 첫 번째 셀렉트 박스에서 전공을 선택하면 두 번재 셀렉트 박스에 해당 전공 과목들이 나옴
+<img src="https://user-images.githubusercontent.com/49421226/160077603-69bc1321-59b5-458c-a5fe-2967de40f9b4.png">
+<img src="https://user-images.githubusercontent.com/49421226/160077852-c07afd49-6e3f-41bb-9cbc-5172dd51b124.png">
+<img src="https://user-images.githubusercontent.com/49421226/160077882-49387f55-5c8a-4506-b125-71268fd1ec9f.png">
+
+---
+### 수강 내역
+
+#### 내 수강 신청 내역
+<img src="https://user-images.githubusercontent.com/49421226/160078294-14f55840-aa18-4c99-ada7-10931299c7f8.png">
