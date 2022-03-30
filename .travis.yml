@@ -1,0 +1,38 @@
+language: java
+jdk:
+  - openjdk11
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+script: "./gradlew clean build"
+
+#before_install:
+#  - chmod +x gradlew
+
+#before_deploy:
+#  - zip -r springboot-aws-webservice *
+#  - mkdir -p deploy
+#  - mv springboot-aws-webservice.zip deploy/springboot-aws-webservice.zip
+
+#deploy:
+#  - provider: s3
+#    access_key_id: $AWS_ACCESS_KEY
+#    secret_access_key: $AWS_SECRET_KEY
+#    bucket: springboot-webservice-build
+#    region: ap-northeast-2
+#    skip_cleanup: true
+#    acl: private
+#    local_dir: deploy
+#    wait-until-deployed: true
+
+notifications:
+  email:
+    recipients:
+      - hsuk6032@gmail.com
