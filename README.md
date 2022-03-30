@@ -92,3 +92,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 #### 내 수강 신청 내역
 <img src="https://user-images.githubusercontent.com/49421226/160078294-14f55840-aa18-4c99-ada7-10931299c7f8.png">
+
+---
+### How to Build
+
+#### 1. git clone
+```shell
+git clone https://github.com/wadekang/course-registration-system.git
+```
+
+#### 2. Make application-db.yml (db setting)
+```yaml
+# file_path: /src/main/resources/application-db.yml
+
+spring:
+  datasource:
+    url: [DB URL]
+    username: [DB ID]
+    password: [DB Password]
+    driver-class-name: [DB Driver]
+
+  jpa:
+    hibernate:
+      ddl-auto: [ddl-auto] # create, update, none, create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        storage-engine: innodb
+```
+
+#### 3. Test
+<img src="https://user-images.githubusercontent.com/49421226/160832960-3fcf043a-d38a-4e86-902e-eea8e1e2be10.png">
+
+#### 4. Run Application
+<img src="https://user-images.githubusercontent.com/49421226/160833658-37159d1f-346b-4684-a72c-0828dfe32320.png">
