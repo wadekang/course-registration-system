@@ -1,6 +1,5 @@
 package com.wadekang.toyproject.courseregistrationsystem.controller.dto;
 
-import com.wadekang.toyproject.courseregistrationsystem.domain.Major;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
