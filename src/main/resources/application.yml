@@ -7,6 +7,9 @@ spring:
       enabled: true
       path: /h2-console
 
+  session:
+    store-type: jdbc
+
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
