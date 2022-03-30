@@ -2,6 +2,7 @@ package com.wadekang.toyproject.courseregistrationsystem.controller;
 
 import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserResponseDto;
 import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserSignUpDto;
+import com.wadekang.toyproject.courseregistrationsystem.controller.dto.UserUpdateRequestDto;
 import com.wadekang.toyproject.courseregistrationsystem.domain.Major;
 import com.wadekang.toyproject.courseregistrationsystem.domain.User;
 import com.wadekang.toyproject.courseregistrationsystem.service.MajorService;
@@ -73,5 +74,30 @@ public class UserController {
         model.addAttribute("msg", msg);
 
         return "myCourseList";
+    }
+
+    @GetMapping("/edit")
+    public String update(@AuthenticationPrincipal User user, Model model,
+                         @RequestParam(value="msg", required = false) String msg) {
+
+        UserResponseDto userResponseDto = userService.findById(user.getUserId());
+        model.addAttribute("userUpdateRequestDto", new UserUpdateRequestDto(userResponseDto));
+        model.addAttribute("msg", msg);
+
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String userInfoUpdate(@AuthenticationPrincipal User user,
+                                 UserUpdateRequestDto userUpdateRequestDto, Model model) {
+        try {
+            userService.update(user.getUserId(), userUpdateRequestDto);
+        } catch (Exception e) {
+            model.addAttribute("userUpdateRequestDto", userUpdateRequestDto);
+            model.addAttribute("msg", e.getMessage());
+            return "edit";
+        }
+
+        return "redirect:/";
     }
 }

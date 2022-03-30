@@ -2,17 +2,32 @@ package com.wadekang.toyproject.courseregistrationsystem.controller.dto;
 
 import com.wadekang.toyproject.courseregistrationsystem.domain.Major;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 public class UserUpdateRequestDto {
 
+    private String loginId;
+    private String username;
     private String email;
     private String phoneNumber;
-    private Major major;
+    private String majorName;
 
-    public UserUpdateRequestDto(String email, String phoneNumber, Major major) {
+    public UserUpdateRequestDto(String loginId, String username, String email, String phoneNumber, String majorName) {
+        this.loginId = loginId;
+        this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.major = major;
+        this.majorName = majorName;
+    }
+
+    public UserUpdateRequestDto(UserResponseDto userResponseDto) {
+        this.loginId = userResponseDto.getLoginId();
+        this.username = userResponseDto.getUsername();
+        this.email = userResponseDto.getEmail();
+        this.phoneNumber = userResponseDto.getPhoneNumber();
+        this.majorName = userResponseDto.getMajor().getMajorName();
     }
 }

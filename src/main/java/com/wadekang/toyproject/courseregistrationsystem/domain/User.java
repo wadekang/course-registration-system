@@ -63,7 +63,6 @@ public class User extends BaseTimeEntity implements UserDetails {
     public void update(UserUpdateRequestDto requestDto) {
         this.email = requestDto.getEmail();
         this.phoneNumber = requestDto.getPhoneNumber();
-        this.major = requestDto.getMajor();
     }
 
     //== 수강 신청 ==//
