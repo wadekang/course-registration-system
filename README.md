@@ -11,7 +11,7 @@ Spring Boot 수강신청 웹 사이트 토이 프로젝트
 3. Gradle
 4. DB: H2 1.4.200 & MariaDB(AWS RDS) 10.5.13
 5. Cloud: AWS EC2
-6. CI/CD: Travis
+6. CI/CD: TravisCI, AWS S3, AWS CodeDeploy
 
 ---
 ## ERD
