@@ -7,7 +7,7 @@ Spring Boot 수강신청 웹 사이트 토이 프로젝트
 ---
 ## Tools
 1. Java: JDK 11.0.13
-2. Spring: Spring Boot 2.6.4
+2. Spring Boot 2.6.4
 3. Gradle
 4. DB: H2 1.4.200 & MariaDB(AWS RDS) 10.5.13
 5. Cloud: AWS EC2
